@@ -28,7 +28,7 @@ class GameOfLive(object):
         neighbors = 0
         for i,j in ((x-1, y-1), (x-1, y), (x-1, y+1), (x, y-1), (x, y+1), (x+1, y-1), (x+1, y), (x+1, y+1)):
             try:
-                neighbors += self.board[i][j]
+                neighbors += self.board[i % self.sizex][j % self.sizey]
             except IndexError:
                 #self.logger.warn('Reached outside the board with {}, {}'.format(i, j))
                 pass
