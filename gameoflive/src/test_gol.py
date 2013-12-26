@@ -2,6 +2,9 @@
 
 from .gol import GameOfLive
 
+from pytest import mark
+
+
 class TestGameOfLive(object):
 
     def runsimulation(self, patterns, iterations=10):
@@ -12,43 +15,39 @@ class TestGameOfLive(object):
             gol.calculatenextboard()
             assert gol.board == patterns[i%len(patterns)]
 
-    def test_block(self):
-        patterns = [[
+    @mark.parametrize('name,patterns', [
+        ('block', [[
             [0, 0, 0, 0],
             [0, 1, 1, 0],
             [0, 1, 1, 0],
             [0, 0, 0, 0],
-        ],]
-        self.runsimulation(patterns)
-
-    def test_boat(self):
-        patterns = [[
+        ],]),
+        ('block_border_vert', [[
+            [0, 0, 0, 0],
+            [1, 0, 0, 1],
+            [1, 0, 0, 1],
+            [0, 0, 0, 0],
+        ],]),
+        ('block_border_hor', [[
+            [0, 1, 1, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 1, 1, 0],
+        ],]),
+        ('block_border_corner', [[
+            [1, 0, 0, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [1, 0, 0, 1],
+        ],]),
+        ('boat', [[
             [0, 0, 0, 0, 0],
             [0, 1, 1, 0, 0],
             [0, 1, 0, 1, 0],
             [0, 0, 1, 0, 0],
             [0, 0, 0, 0, 0],
-        ],]
-        self.runsimulation(patterns)
-
-    def test_blinker(self):
-        patterns = [[
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 1, 1, 1, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-        ], [
-            [0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 0],
-            [0, 0, 1, 0, 0],
-            [0, 0, 1, 0, 0],
-            [0, 0, 0, 0, 0],
-        ]]
-        self.runsimulation(patterns)
-
-    def test_toad(self):
-        patterns = [[
+        ],]),
+        ('toad', [[
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 1, 0, 0],
             [0, 1, 0, 0, 1, 0],
@@ -62,11 +61,8 @@ class TestGameOfLive(object):
             [0, 1, 1, 1, 0, 0],
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
-        ]]
-        self.runsimulation(patterns)
-
-    def test_beacon(self):
-        patterns = [[
+        ]]),
+        ('beacon', [[
             [0, 0, 0, 0, 0, 0],
             [0, 1, 1, 0, 0, 0],
             [0, 1, 0, 0, 0, 0],
@@ -80,5 +76,21 @@ class TestGameOfLive(object):
             [0, 0, 0, 1, 1, 0],
             [0, 0, 0, 1, 1, 0],
             [0, 0, 0, 0, 0, 0],
-        ]]
+        ]]),
+        ('blinker', [[
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+        ], [
+            [0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0],
+        ]]),
+    ])
+    def test_single(self, name, patterns):
+        print name
         self.runsimulation(patterns)
