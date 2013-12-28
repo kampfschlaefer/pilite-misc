@@ -2,6 +2,7 @@
 
 import math as m
 
+
 class BaseObject(object):
     def __init__(self, x, y):
         self.x = x
@@ -9,6 +10,7 @@ class BaseObject(object):
 
     def timetick(self, amount):
         pass
+
 
 class BaseVelocityObject(BaseObject):
     def __init__(self, x, y, radiant, velocity):

@@ -3,7 +3,7 @@
 import math as m
 from pytest import mark
 
-from objects import (
+from .objects import (
     BaseObject,
     BaseVelocityObject,
 )
@@ -21,6 +21,7 @@ class TestBaseObject(object):
         self.obj.timetick(1)
         assert self.obj.x == 0
         assert self.obj.y == 0
+
 
 class TestBaseVelocityObject(object):
     def setup(self):
